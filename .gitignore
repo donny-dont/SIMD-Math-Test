@@ -1,0 +1,12 @@
+# Visual Studio files
+*.sdf
+*.ilk
+*.user
+*.opensdf
+*.suo
+
+# Compiled code
+*.exe
+Debug
+Profile
+Release
