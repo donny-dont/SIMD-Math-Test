@@ -300,10 +300,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="DXUT\Optional\directx.ico" />
-    <None Include="..\ClothComparison.xls" />
-    <None Include="..\DesigingSIMDVectorLibraries.doc" />
-    <None Include="..\EQComparison.xls" />
-    <None Include="..\SineComparison.xls" />
     <None Include="really_readme.txt" />
     <None Include="CustomUI.fx" />
   </ItemGroup>

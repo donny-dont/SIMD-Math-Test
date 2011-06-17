@@ -8,9 +8,6 @@
     <Filter Include="DXUT">
       <UniqueIdentifier>{dc012d8e-1fcf-485a-88d1-91cc09b579d8}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Doc">
-      <UniqueIdentifier>{09056ae3-87e2-4f41-9b0b-c147d111ca29}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Really README!">
       <UniqueIdentifier>{f8018424-260c-475c-97bd-1510a49535e1}</UniqueIdentifier>
     </Filter>
@@ -23,18 +20,6 @@
   <ItemGroup>
     <None Include="DXUT\Optional\directx.ico">
       <Filter>Resource Files</Filter>
-    </None>
-    <None Include="..\ClothComparison.xls">
-      <Filter>Doc</Filter>
-    </None>
-    <None Include="..\DesigingSIMDVectorLibraries.doc">
-      <Filter>Doc</Filter>
-    </None>
-    <None Include="..\EQComparison.xls">
-      <Filter>Doc</Filter>
-    </None>
-    <None Include="..\SineComparison.xls">
-      <Filter>Doc</Filter>
     </None>
     <None Include="really_readme.txt">
       <Filter>Really README!</Filter>

@@ -1,0 +1,22 @@
+== SIMD Math Test ==
+----
+A performance comparison between different implementations of an SIMD vector using SSE2. The code is a modified version of the source code to [[Designing Fast Cross-Platform|http://www.gamasutra.com/view/feature/4248/designing_fast_crossplatform_simd_.php]] by Gustavo Oliveira.
+
+;VMath
+: An SIMD implementation where the __m128 data type is typedefed as a 4D vector.
+;XNAMath
+: Microsoft implementation included with DirectX.
+;VClass
+: An SIMD implementation where the __m128 data type is wrapped in a C++ class and used as a 4D vector.
+;VClassWithTypedef
+: An SIMD implementation where the __m128 data type is typedefed. A 4D vector is then built upon the __m128 typedef.
+;VClassWithSIMDType
+: An SIMD implementation where the __m128 data type is wrapped in a C++ class. A 4D vector is then built upon the SIMD class.
+
+The goal of this comparison is to see if abstracting a low level SIMD interface and then using that interface to create math classes is a viable approach. This is the subject of a series of articles on #AltDevBlogADay.
+
+[[Defining an SIMD Interface|http://altdevblogaday.org/2011/04/29/defining-an-simd-interface/]]
+
+=== Thanks ===
+----
+Thanks to Gustavo Oliveira for allowing the use of his source code.

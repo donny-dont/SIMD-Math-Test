@@ -7,6 +7,7 @@
 
 # Compiled code
 *.exe
+ipch
 Debug
 Profile
 Release
