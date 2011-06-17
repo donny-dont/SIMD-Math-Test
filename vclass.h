@@ -23,77 +23,74 @@ namespace VCLASS
 			inline Vec4() {};
 
 			inline Vec4(float *pVec)
-			{
-				xyzw = _mm_load_ps(pVec);
-			};
+				: xyzw(_mm_load_ps(pVec))
+			{ };
 
 			inline Vec4(float f)
-			{
-				xyzw = _mm_set_ps1(f);
-			};
+				: xyzw(_mm_set_ps1(f))
+			{ }
 
 			inline Vec4(__m128 qword)
-			{
-				xyzw = qword;
-			};
+				: xyzw(qword)
+			{ }
 
 			inline Vec4(float x, float y, float z, float w)
+				: xyzw(_mm_set_ps(x, y, z, w))
+			{ }
+
+			inline Vec4(const Vec4& copy)
+				: xyzw(copy.xyzw)
+			{ }
+
+			inline Vec4& operator= (const Vec4& copy)
 			{
-				xyzw = _mm_set_ps(x, y, z, w);
+				xyzw = copy.xyzw;
+
+				return *this;
 			}
 
 			inline Vec4& operator+=(const Vec4 &rhs)
 			{
 				xyzw = _mm_add_ps(xyzw, rhs.xyzw);
-				return(*this);
-			};
+				return *this;
+			}
 
 			inline Vec4& operator-=(const Vec4 &rhs)
 			{
 				xyzw = _mm_sub_ps(xyzw, rhs.xyzw);
-				return(*this);
-			};
-
+				return *this;
+			}
 
 			inline Vec4& operator*=(const Vec4 &rhs)
 			{
 				xyzw = _mm_mul_ps(xyzw, rhs.xyzw);
-				return(*this);
-			};
+				return *this;
+			}
 
 			inline const Vec4 operator+(const Vec4 &rhs) const
 			{
-				Vec4 res(*this);
-				res.xyzw = _mm_add_ps(res.xyzw, rhs.xyzw);
-				return(res);
-			};
+				return Vec4(_mm_add_ps(xyzw, rhs.xyzw));
+			}
 
 			inline const Vec4 operator*(const Vec4 &rhs) const
 			{
-				Vec4 res(*this);
-				res.xyzw = _mm_mul_ps(res.xyzw, rhs.xyzw);
-				return(res);
-			};
+				return Vec4(_mm_mul_ps(xyzw, rhs.xyzw));
+			}
 
 			inline const Vec4 operator-(const Vec4 &rhs) const
 			{
-				Vec4 res(*this);
-				res.xyzw = _mm_sub_ps(res.xyzw, rhs.xyzw);
-				return(res);
-			};
+				return Vec4(_mm_sub_ps(xyzw, rhs.xyzw));
+			}
 
 			inline const Vec4 operator/(const Vec4 &rhs) const
 			{
-				Vec4 res(*this);
-				res.xyzw = _mm_div_ps(res.xyzw, rhs.xyzw);
-				return(res);
-			};
-
+				return Vec4(_mm_div_ps(xyzw, rhs.xyzw));
+			}
 
 			inline void Store(float *pVec)
 			{
 				_mm_store_ps(pVec, xyzw);
-			};
+			}
 
 			inline void Bc()
 			{
@@ -107,39 +104,36 @@ namespace VCLASS
 				__m128 t2 = _mm_add_ps(t0, t1);
 				__m128 t3 = _mm_shuffle_ps(t2, t2, _MM_SHUFFLE(2,3,0,1));
 				__m128 dot = _mm_add_ps(t3, t2);
-				Vec4	res(dot);
-				return(res);
+
+				return Vec4(dot);
 			}
 
 			static inline Vec4 Sqrt(Vec4& va)
 			{
-				__m128 t0 = _mm_sqrt_ps(va.xyzw);
-				Vec4 vsqrt(t0);
-				return(vsqrt);
+				return Vec4(_mm_sqrt_ps(va.xyzw));
 			}
 
 #if 0
 			static inline Vec4 VAdd(Vec4 va, Vec4 vb)
 			{
 				return(_mm_add_ps(va.xyzw, vb.xyzw));
-			};
+			}
 
 			static inline Vec4 VSub(Vec4 va, Vec4 vb)
 			{
 				return(_mm_sub_ps(va.xyzw, vb.xyzw));
-			};
+			}
 
 			static inline Vec4 VMul(Vec4 va, Vec4 vb)
 			{
 				return(_mm_mul_ps(va.xyzw, vb.xyzw));
-			};
+			}
 #endif
 
 			static inline void GetX(float *p, Vec4 v)
 			{
 				_mm_store_ss(p, v.xyzw);
 			}
-
 
 		private:
 			__m128	xyzw;

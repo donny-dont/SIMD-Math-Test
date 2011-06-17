@@ -1,5 +1,5 @@
 == SIMD Math Test ==
-----
+
 A performance comparison between different implementations of an SIMD vector using SSE2. The code is a modified version of the source code to [http://www.gamasutra.com/view/feature/4248/designing_fast_crossplatform_simd_.php Designing Fast Cross-Platform SIMD Vector Libraries] by Gustavo Oliveira.
 
 ;VMath
@@ -18,5 +18,5 @@ The goal of this comparison is to see if abstracting a low level SIMD interface 
 [http://altdevblogaday.org/2011/04/29/defining-an-simd-interface/ Defining an SIMD Interface]
 
 === Thanks ===
-----
+
 Thanks to Gustavo Oliveira for allowing the use of his source code.
