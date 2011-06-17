@@ -1,6 +1,6 @@
 == SIMD Math Test ==
 ----
-A performance comparison between different implementations of an SIMD vector using SSE2. The code is a modified version of the source code to [[Designing Fast Cross-Platform|http://www.gamasutra.com/view/feature/4248/designing_fast_crossplatform_simd_.php]] by Gustavo Oliveira.
+A performance comparison between different implementations of an SIMD vector using SSE2. The code is a modified version of the source code to [http://www.gamasutra.com/view/feature/4248/designing_fast_crossplatform_simd_.php Designing Fast Cross-Platform SIMD Vector Libraries] by Gustavo Oliveira.
 
 ;VMath
 : An SIMD implementation where the __m128 data type is typedefed as a 4D vector.
@@ -15,7 +15,7 @@ A performance comparison between different implementations of an SIMD vector usi
 
 The goal of this comparison is to see if abstracting a low level SIMD interface and then using that interface to create math classes is a viable approach. This is the subject of a series of articles on #AltDevBlogADay.
 
-[[Defining an SIMD Interface|http://altdevblogaday.org/2011/04/29/defining-an-simd-interface/]]
+[http://altdevblogaday.org/2011/04/29/defining-an-simd-interface/ Defining an SIMD Interface]
 
 === Thanks ===
 ----
