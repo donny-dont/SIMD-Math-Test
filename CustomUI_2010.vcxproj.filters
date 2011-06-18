@@ -11,6 +11,9 @@
     <Filter Include="Really README!">
       <UniqueIdentifier>{f8018424-260c-475c-97bd-1510a49535e1}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Assembly_VS2010">
+      <UniqueIdentifier>{9f91534b-f179-47f8-9bc6-3bbc413c612d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="CustomUI.rc">
@@ -27,6 +30,63 @@
     <None Include="CustomUI.fx" />
     <None Include="cloth_vclass.inl" />
     <None Include="eq_vclass.inl" />
+    <None Include="Assembly_VS2010\satisfy_constraints_vclass.asm">
+      <Filter>Assembly_VS2010</Filter>
+    </None>
+    <None Include="Assembly_VS2010\satisfy_constraints_vclass_simdtype.asm">
+      <Filter>Assembly_VS2010</Filter>
+    </None>
+    <None Include="Assembly_VS2010\satisfy_constraints_vclass_typedef.asm">
+      <Filter>Assembly_VS2010</Filter>
+    </None>
+    <None Include="Assembly_VS2010\satisfy_constraints_vmath.asm">
+      <Filter>Assembly_VS2010</Filter>
+    </None>
+    <None Include="Assembly_VS2010\satisfy_constraints_xnamath.asm">
+      <Filter>Assembly_VS2010</Filter>
+    </None>
+    <None Include="Assembly_VS2010\verlet_vclass.asm">
+      <Filter>Assembly_VS2010</Filter>
+    </None>
+    <None Include="Assembly_VS2010\verlet_vclass_simdtype.asm">
+      <Filter>Assembly_VS2010</Filter>
+    </None>
+    <None Include="Assembly_VS2010\verlet_vclass_typedef.asm">
+      <Filter>Assembly_VS2010</Filter>
+    </None>
+    <None Include="Assembly_VS2010\verlet_vmath.asm">
+      <Filter>Assembly_VS2010</Filter>
+    </None>
+    <None Include="Assembly_VS2010\verlet_xnamath.asm">
+      <Filter>Assembly_VS2010</Filter>
+    </None>
+    <None Include="Assembly_VS2010\vsin_vclass.asm">
+      <Filter>Assembly_VS2010</Filter>
+    </None>
+    <None Include="Assembly_VS2010\vsin_vclass_simdtype.asm">
+      <Filter>Assembly_VS2010</Filter>
+    </None>
+    <None Include="Assembly_VS2010\vsin_vclass_typedef.asm">
+      <Filter>Assembly_VS2010</Filter>
+    </None>
+    <None Include="Assembly_VS2010\vsin_vmath.asm">
+      <Filter>Assembly_VS2010</Filter>
+    </None>
+    <None Include="Assembly_VS2010\do_3band_vclass.asm">
+      <Filter>Assembly_VS2010</Filter>
+    </None>
+    <None Include="Assembly_VS2010\do_3band_vclass_simdtype.asm">
+      <Filter>Assembly_VS2010</Filter>
+    </None>
+    <None Include="Assembly_VS2010\do_3band_vclass_typedef.asm">
+      <Filter>Assembly_VS2010</Filter>
+    </None>
+    <None Include="Assembly_VS2010\do_3band_vmath.asm">
+      <Filter>Assembly_VS2010</Filter>
+    </None>
+    <None Include="Assembly_VS2010\do_3band_xnamath.asm">
+      <Filter>Assembly_VS2010</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="resource.h">

@@ -8,6 +8,8 @@
 #include <math.h>
 #include "vmath.h"
 #include "vclass.h"
+#include "vclass_typedef.h"
+#include "vclass_simdtype.h"
 
 extern void DBugVec(WCHAR *str, float* p);
 
@@ -138,6 +140,56 @@ Vec4 DotPlatformSpecific(Vec4 va, Vec4 vb)
 }
 
 namespace VCLASS
+{
+	Vec4 VSin(const Vec4& x)
+	{
+		Vec4 c1 = Vec4(-1.f/6.f);
+		Vec4 c2 = Vec4(1.f/120.f);
+		Vec4 c3 = Vec4(-1.f/5040.f);
+		Vec4 c4 = Vec4(1.f/362880);
+		Vec4 c5 = Vec4(-1.f/39916800);
+		Vec4 c6 = Vec4(1.f/6227020800);
+		Vec4 c7 = Vec4(-1.f/1307674368000);
+
+		Vec4 res =	x + 
+					c1*x*x*x + 
+					c2*x*x*x*x*x + 
+					c3*x*x*x*x*x*x*x + 
+					c4*x*x*x*x*x*x*x*x*x + 
+					c5*x*x*x*x*x*x*x*x*x*x*x + 
+					c6*x*x*x*x*x*x*x*x*x*x*x*x*x + 
+					c7*x*x*x*x*x*x*x*x*x*x*x*x*x*x*x;
+
+		return (res);
+	}
+}
+
+namespace VCLASS_TYPEDEF
+{
+	Vec4 VSin(const Vec4& x)
+	{
+		Vec4 c1 = Vec4(-1.f/6.f);
+		Vec4 c2 = Vec4(1.f/120.f);
+		Vec4 c3 = Vec4(-1.f/5040.f);
+		Vec4 c4 = Vec4(1.f/362880);
+		Vec4 c5 = Vec4(-1.f/39916800);
+		Vec4 c6 = Vec4(1.f/6227020800);
+		Vec4 c7 = Vec4(-1.f/1307674368000);
+
+		Vec4 res =	x + 
+					c1*x*x*x + 
+					c2*x*x*x*x*x + 
+					c3*x*x*x*x*x*x*x + 
+					c4*x*x*x*x*x*x*x*x*x + 
+					c5*x*x*x*x*x*x*x*x*x*x*x + 
+					c6*x*x*x*x*x*x*x*x*x*x*x*x*x + 
+					c7*x*x*x*x*x*x*x*x*x*x*x*x*x*x*x;
+
+		return (res);
+	}
+}
+
+namespace VCLASS_SIMDTYPE
 {
 	Vec4 VSin(const Vec4& x)
 	{

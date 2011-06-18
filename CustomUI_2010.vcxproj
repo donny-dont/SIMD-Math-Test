@@ -198,7 +198,7 @@
       <PrecompiledHeaderFile>dxut.h</PrecompiledHeaderFile>
       <WarningLevel>Level3</WarningLevel>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
-      <AssemblerOutput>AssemblyAndSourceCode</AssemblerOutput>
+      <AssemblerOutput>AssemblyCode</AssemblerOutput>
     </ClCompile>
     <Link>
       <AdditionalOptions>/IGNORE:4089 %(AdditionalOptions)</AdditionalOptions>
@@ -306,6 +306,25 @@
     <ResourceCompile Include="CustomUI.rc" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Assembly_VS2010\do_3band_vclass.asm" />
+    <None Include="Assembly_VS2010\do_3band_vclass_simdtype.asm" />
+    <None Include="Assembly_VS2010\do_3band_vclass_typedef.asm" />
+    <None Include="Assembly_VS2010\do_3band_vmath.asm" />
+    <None Include="Assembly_VS2010\do_3band_xnamath.asm" />
+    <None Include="Assembly_VS2010\satisfy_constraints_vclass.asm" />
+    <None Include="Assembly_VS2010\satisfy_constraints_vclass_simdtype.asm" />
+    <None Include="Assembly_VS2010\satisfy_constraints_vclass_typedef.asm" />
+    <None Include="Assembly_VS2010\satisfy_constraints_vmath.asm" />
+    <None Include="Assembly_VS2010\satisfy_constraints_xnamath.asm" />
+    <None Include="Assembly_VS2010\verlet_vclass.asm" />
+    <None Include="Assembly_VS2010\verlet_vclass_simdtype.asm" />
+    <None Include="Assembly_VS2010\verlet_vclass_typedef.asm" />
+    <None Include="Assembly_VS2010\verlet_vmath.asm" />
+    <None Include="Assembly_VS2010\verlet_xnamath.asm" />
+    <None Include="Assembly_VS2010\vsin_vclass.asm" />
+    <None Include="Assembly_VS2010\vsin_vclass_simdtype.asm" />
+    <None Include="Assembly_VS2010\vsin_vclass_typedef.asm" />
+    <None Include="Assembly_VS2010\vsin_vmath.asm" />
     <None Include="cloth_vclass.inl" />
     <None Include="DXUT\Optional\directx.ico" />
     <None Include="eq_vclass.inl" />

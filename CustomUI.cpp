@@ -1235,13 +1235,21 @@ void FromSlidersToCloth()
 	{
 		CLOTH_VMATH::ClothSetGlobalParam(rot, trans, gravity);
 	}
+	else if (g_libType == MATHLIB_TYPE_XNAMATH)
+	{
+		CLOTH_XNAMATH::ClothSetGlobalParam(rot, trans, gravity);
+	}
 	else if (g_libType == MATHLIB_TYPE_VCLASS)
 	{
 		CLOTH_VCLASS::ClothSetGlobalParam(rot, trans, gravity);
 	}
-	else if (g_libType == MATHLIB_TYPE_XNAMATH)
+	else if (g_libType == MATHLIB_TYPE_VCLASS_TYPEDEF)
 	{
-		CLOTH_XNAMATH::ClothSetGlobalParam(rot, trans, gravity);
+		CLOTH_VCLASS_TYPEDEF::ClothSetGlobalParam(rot, trans, gravity);
+	}
+	else if (g_libType == MATHLIB_TYPE_VCLASS_SIMDTYPE)
+	{
+		CLOTH_VCLASS_SIMDTYPE::ClothSetGlobalParam(rot, trans, gravity);
 	}
 	else
 	{
