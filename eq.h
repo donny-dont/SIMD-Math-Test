@@ -154,7 +154,7 @@ namespace EQ_VCLASS_TYPEDEF
 
 namespace EQ_VCLASS_SIMDTYPE
 {
-	using namespace VCLASS;
+	using namespace VCLASS_SIMDTYPE;
 
 	// ------------
 	//| Structures |

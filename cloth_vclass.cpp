@@ -22,6 +22,7 @@
 #include "common.h"
 #include "vclass.h"
 #include "vclass_typedef.h"
+#include "vclass_simdtype.h"
 #include "cloth.h"
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -48,7 +49,7 @@ namespace CLOTH_VCLASS_TYPEDEF
 
 namespace CLOTH_VCLASS_SIMDTYPE
 {
-	using namespace VCLASS;
+	using namespace VCLASS_SIMDTYPE;
 
 	#include "cloth_vclass.inl"
 }

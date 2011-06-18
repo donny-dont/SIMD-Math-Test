@@ -35,6 +35,7 @@
 #include <emmintrin.h>
 #include "vclass.h"
 #include "vclass_typedef.h"
+#include "vclass_simdtype.h"
 #include "vmath.h"
 #include "common.h"
 #include "eq.h"
@@ -399,7 +400,7 @@ void UpdateEQ( float *pGainArr)
 	}
 
 	{
-		using namespace	VCLASS;
+		using namespace	VCLASS_SIMDTYPE;
 
 		int ch = 0;
 		g_eqVClassSIMDType.lg = Vec4(pGainArr[ch], pGainArr[ch+3], pGainArr[ch+6], pGainArr[ch+9]);
@@ -556,7 +557,7 @@ double ProcessAudioVClassTypedef(int audioFrames)
 //--------------------------------------------------------------------------------------
 double ProcessAudioVClassSIMDType(int audioFrames)
 {
-	using namespace VCLASS;
+	using namespace VCLASS_SIMDTYPE;
 
 	PerformanceCounterStart();
 

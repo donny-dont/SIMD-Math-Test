@@ -190,8 +190,8 @@ LPCWSTR	g_clothSliderText[] =
 };
 
 //demo flags
-int g_demoType = DEMO_TYPE_CLOTH;
-//int g_demoType = DEMO_TYPE_AUDIO;
+//int g_demoType = DEMO_TYPE_CLOTH;
+int g_demoType = DEMO_TYPE_AUDIO;
 
 int g_libType = MATHLIB_TYPE_VMATH;
 int g_libTypeLast = g_libType;

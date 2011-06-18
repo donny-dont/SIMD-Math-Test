@@ -67,27 +67,27 @@ namespace VCLASS
 				return *this;
 			}
 
-			inline const Vec4 operator+(const Vec4 &rhs) const
+			inline Vec4 operator+(const Vec4 &rhs) const
 			{
 				return Vec4(_mm_add_ps(xyzw, rhs.xyzw));
 			}
 
-			inline const Vec4 operator*(const Vec4 &rhs) const
+			inline Vec4 operator*(const Vec4 &rhs) const
 			{
 				return Vec4(_mm_mul_ps(xyzw, rhs.xyzw));
 			}
 
-			inline const Vec4 operator-(const Vec4 &rhs) const
+			inline Vec4 operator-(const Vec4 &rhs) const
 			{
 				return Vec4(_mm_sub_ps(xyzw, rhs.xyzw));
 			}
 
-			inline const Vec4 operator/(const Vec4 &rhs) const
+			inline Vec4 operator/(const Vec4 &rhs) const
 			{
 				return Vec4(_mm_div_ps(xyzw, rhs.xyzw));
 			}
 
-			inline void Store(float *pVec)
+			inline void Store(float *pVec) const
 			{
 				_mm_store_ps(pVec, xyzw);
 			}
@@ -97,7 +97,7 @@ namespace VCLASS
 				xyzw = _mm_shuffle_ps(xyzw, xyzw, _MM_SHUFFLE(3,3,3,3));
 			}
 
-			static inline const Vec4 Dot(const Vec4& va, const Vec4& vb)
+			static inline Vec4 Dot(const Vec4& va, const Vec4& vb)
 			{
 				__m128 t0 = _mm_mul_ps(va.xyzw, vb.xyzw);
 				__m128 t1 = _mm_shuffle_ps(t0, t0, _MM_SHUFFLE(1,0,3,2));
@@ -108,22 +108,22 @@ namespace VCLASS
 				return Vec4(dot);
 			}
 
-			static inline const Vec4 Sqrt(const Vec4& va)
+			static inline Vec4 Sqrt(const Vec4& va)
 			{
 				return Vec4(_mm_sqrt_ps(va.xyzw));
 			}
 
-			static inline const Vec4 VAdd(const Vec4& va, const Vec4& vb)
+			static inline Vec4 VAdd(const Vec4& va, const Vec4& vb)
 			{
 				return Vec4(_mm_add_ps(va.xyzw, vb.xyzw));
 			}
 
-			static inline const Vec4 VSub(const Vec4& va, const Vec4& vb)
+			static inline Vec4 VSub(const Vec4& va, const Vec4& vb)
 			{
 				return Vec4(_mm_sub_ps(va.xyzw, vb.xyzw));
 			}
 
-			static inline const Vec4 VMul(const Vec4& va, const Vec4& vb)
+			static inline Vec4 VMul(const Vec4& va, const Vec4& vb)
 			{
 				return Vec4(_mm_mul_ps(va.xyzw, vb.xyzw));
 			}

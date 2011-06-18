@@ -17,6 +17,7 @@
 #include "vmath.h"
 #include "vclass.h"
 #include "vclass_typedef.h"
+#include "vclass_simdtype.h"
 #include "eq.h"
 
 //#define EQ_VCLASS_NO_OVERLOADED_OPERATORS
@@ -244,7 +245,7 @@ namespace EQ_VCLASS_TYPEDEF
 
 namespace EQ_VCLASS_SIMDTYPE
 {
-	using namespace VCLASS;
+	using namespace VCLASS_SIMDTYPE;
 
 	#include "eq_vclass.inl"
 }

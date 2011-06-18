@@ -8,6 +8,7 @@ namespace VCLASS_TYPEDEF
 	///////////////////////////////////////////
 
 	typedef __m128 simd_type;
+	typedef const __m128& simd_param;
 
 	inline simd_type VLoad(float *pVec)
 	{
@@ -24,37 +25,37 @@ namespace VCLASS_TYPEDEF
 		return _mm_set_ps(x, y, z, w);
 	}
 
-	inline simd_type VBAdd(simd_type va, simd_type vb)
+	inline simd_type VBAdd(simd_param va, simd_param vb)
 	{
 		return _mm_add_ps(va, vb);
 	}
 
-	inline simd_type VBSub(simd_type va, simd_type vb)
+	inline simd_type VBSub(simd_param va, simd_param vb)
 	{
 		return _mm_sub_ps(va, vb);
 	}
 
-	inline simd_type VBMul(const simd_type va, const simd_type vb)
+	inline simd_type VBMul(simd_param va, simd_param vb)
 	{
 		return _mm_mul_ps(va, vb);
 	}
 
-	inline simd_type VBDiv(const simd_type va, const simd_type vb)
+	inline simd_type VBDiv(simd_param va, simd_param vb)
 	{
 		return _mm_div_ps(va, vb);
 	}
 
-	inline void VBStore(float *pVec, simd_type v)
+	inline void VBStore(float *pVec, simd_param v)
 	{
 		return _mm_store_ps(pVec, v);
 	}
 
-	inline simd_type VBc(simd_type v)
+	inline simd_type VBc(simd_param v)
 	{
 		return _mm_shuffle_ps(v, v, _MM_SHUFFLE(3,3,3,3));
 	}
 
-	inline simd_type VBDot(simd_type va, simd_type vb)
+	inline simd_type VBDot(simd_param va, simd_param vb)
 	{
 		simd_type t0 = _mm_mul_ps(va, vb);
 		simd_type t1 = _mm_shuffle_ps(t0, t0, _MM_SHUFFLE(1,0,3,2));
@@ -64,17 +65,17 @@ namespace VCLASS_TYPEDEF
 		return _mm_add_ps(t3, t2);
 	}
 
-	inline simd_type VBSqrt(simd_type v)
+	inline simd_type VBSqrt(simd_param v)
 	{
 		return _mm_sqrt_ps(v);
 	}
 
-	inline void VBGetX(float *p, simd_type v)
+	inline void VBGetX(float *p, simd_param v)
 	{
 		_mm_store_ss(p, v);
 	}
 
-	inline simd_type VBReflect(simd_type Incident, simd_type Normal)
+	inline simd_type VBReflect(simd_param Incident, simd_param Normal)
 	{
 		// Result = Incident - (2 * dot(Incident, Normal)) * Normal
 		simd_type Result = VBDot(Incident,Normal);
@@ -141,27 +142,27 @@ namespace VCLASS_TYPEDEF
 				return *this;
 			}
 
-			inline const vector4 operator+ (const vector4& rhs) const
+			inline vector4 operator+ (const vector4& rhs) const
 			{
 				return vector4(VBAdd(_rep, rhs._rep));
 			}
 
-			inline const vector4 operator- (const vector4& rhs) const
+			inline vector4 operator- (const vector4& rhs) const
 			{
 				return vector4(VBSub(_rep, rhs._rep));
 			}
 
-			inline const vector4 operator* (const vector4& rhs) const
+			inline vector4 operator* (const vector4& rhs) const
 			{
 				return vector4(VBMul(_rep, rhs._rep));
 			}
 
-			inline const vector4 operator/ (const vector4& rhs) const
+			inline vector4 operator/ (const vector4& rhs) const
 			{
 				return vector4(VBDiv(_rep, rhs._rep));
 			}
 
-			inline void Store(Real *pVec)
+			inline void Store(Real *pVec) const
 			{
 				VBStore(pVec, _rep);
 			}
@@ -171,27 +172,27 @@ namespace VCLASS_TYPEDEF
 				VBc(_rep);
 			}
 
-			static inline const vector4 Dot(const vector4& va, const vector4& vb)
+			static inline vector4 Dot(const vector4& va, const vector4& vb)
 			{
 				return vector4(VBDot(va._rep, vb._rep));
 			}
 
-			static inline const vector4 Sqrt(const vector4& va)
+			static inline vector4 Sqrt(const vector4& va)
 			{
 				return vector4(VBSqrt(va._rep));
 			}
 
-			static inline const vector4 VAdd(const vector4& va, const vector4& vb)
+			static inline vector4 VAdd(const vector4& va, const vector4& vb)
 			{
 				return vector4(VBAdd(va._rep, vb._rep));
 			}
 
-			static inline const vector4 VSub(const vector4& va, const vector4& vb)
+			static inline vector4 VSub(const vector4& va, const vector4& vb)
 			{
 				return vector4(VBSub(va._rep, vb._rep));
 			}
 
-			static inline const vector4 VMul(const vector4& va, const vector4& vb)
+			static inline vector4 VMul(const vector4& va, const vector4& vb)
 			{
 				return vector4(VBMul(va._rep, vb._rep));
 			}

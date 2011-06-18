@@ -76,6 +76,7 @@
     <ClInclude Include="vclass.h" />
     <ClInclude Include="vmath.h" />
     <ClInclude Include="vclass_typedef.h" />
+    <ClInclude Include="vclass_simdtype.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="DXUT\Core\DXUT.cpp">
