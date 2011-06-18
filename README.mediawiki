@@ -8,9 +8,9 @@ A performance comparison between different implementations of an SIMD vector usi
 : Microsoft implementation included with DirectX.
 ;VClass
 : An SIMD implementation where the __m128 data type is wrapped in a C++ class and used as a 4D vector.
-;VClassWithTypedef
+;VClassTypedef
 : An SIMD implementation where the __m128 data type is typedefed. A 4D vector is then built upon the __m128 typedef.
-;VClassWithSIMDType
+;VClassSIMDType
 : An SIMD implementation where the __m128 data type is wrapped in a C++ class. A 4D vector is then built upon the SIMD class.
 
 The goal of this comparison is to see if abstracting a low level SIMD interface and then using that interface to create math classes is a viable approach. This is the subject of a series of articles on #AltDevBlogADay.
