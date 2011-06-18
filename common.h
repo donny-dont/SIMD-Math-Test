@@ -12,10 +12,11 @@ extern HRESULT InitXAudio2(void);
 extern HRESULT PlayPCM( IXAudio2* pXaudio2, LPCWSTR szFilename );
 extern HRESULT PlayChannels(void);
 extern HRESULT StopChannels(void);
-extern double ProcessAudioFPU(int audioFrames);
-extern double ProcessAudioVClass(int audioFrames);
 extern double ProcessAudioVMath(int audioFrames);
 extern double ProcessAudioXNAMath(int audioFrames);
+extern double ProcessAudioVClass(int audioFrames);
+extern double ProcessAudioVClassTypedef(int audioFrames);
+extern double ProcessAudioVClassSIMDType(int audioFrames);
 
 //globals
 extern IXAudio2* g_pXAudio2;
@@ -47,12 +48,13 @@ inline double PerformanceCounterEnd(void)
 //									defines & consts
 //--------------------------------------------------------------------------------------
 
-#define	MATHLIB_TYPE_FPU		(0)
-#define	MATHLIB_TYPE_VMATH		(1)
-#define	MATHLIB_TYPE_VCLASS		(2)
-#define	MATHLIB_TYPE_XNAMATH	(3)
-#define	MATHLIB_TYPE_MAX		(MATHLIB_TYPE_XNAMATH)
-#define	MATHLIB_TYPE_MIN		(MATHLIB_TYPE_FPU)
+#define	MATHLIB_TYPE_VMATH				(0)
+#define	MATHLIB_TYPE_XNAMATH			(1)
+#define	MATHLIB_TYPE_VCLASS				(2)
+#define MATHLIB_TYPE_VCLASS_TYPEDEF		(3)
+#define MATHLIB_TYPE_VCLASS_SIMDTYPE	(4)
+#define	MATHLIB_TYPE_MAX				(MATHLIB_TYPE_VCLASS_SIMDTYPE)
+#define	MATHLIB_TYPE_MIN				(MATHLIB_TYPE_VMATH)
 
 #define DEMO_TYPE_AUDIO			(0)
 #define DEMO_TYPE_CLOTH			(1)

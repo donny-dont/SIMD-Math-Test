@@ -25,6 +25,8 @@
       <Filter>Really README!</Filter>
     </None>
     <None Include="CustomUI.fx" />
+    <None Include="cloth_vclass.inl" />
+    <None Include="eq_vclass.inl" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="resource.h">
@@ -73,6 +75,7 @@
     <ClInclude Include="eq_xna.h" />
     <ClInclude Include="vclass.h" />
     <ClInclude Include="vmath.h" />
+    <ClInclude Include="vclass_typedef.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="DXUT\Core\DXUT.cpp">

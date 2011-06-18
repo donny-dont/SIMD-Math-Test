@@ -299,7 +299,9 @@
     <ResourceCompile Include="CustomUI.rc" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="cloth_vclass.inl" />
     <None Include="DXUT\Optional\directx.ico" />
+    <None Include="eq_vclass.inl" />
     <None Include="really_readme.txt" />
     <None Include="CustomUI.fx" />
   </ItemGroup>
@@ -317,6 +319,7 @@
     <ClInclude Include="DXUT\Optional\SDKmesh.h" />
     <ClInclude Include="DXUT\Optional\SDKmisc.h" />
     <ClInclude Include="SDKwavefile.h" />
+    <ClInclude Include="vclass_typedef.h" />
     <ClInclude Include="_xnamath_.h" />
     <ClInclude Include="cloth.h" />
     <ClInclude Include="common.h" />

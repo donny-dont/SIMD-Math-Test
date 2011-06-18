@@ -80,17 +80,19 @@ CDXUTDialog                 g_SampleUI;             // dialog for sample specifi
 
 #define IDC_OUTPUT_BAYARD_TITLE			(250)
 
-#define IDC_OUTPUT_AVG_STATS_VMATH		(300)
-#define IDC_OUTPUT_AVG_STATS_XNAMATH	(301)
-#define IDC_OUTPUT_AVG_STATS_VCLASS		(302)
-#define IDC_OUTPUT_AVG_STATS_FPU		(303)
+#define IDC_OUTPUT_AVG_STATS_VMATH				(300)
+#define IDC_OUTPUT_AVG_STATS_XNAMATH			(301)
+#define IDC_OUTPUT_AVG_STATS_VCLASS				(302)
+#define IDC_OUTPUT_AVG_STATS_VCLASS_TYPEDEF		(303)
+#define IDC_OUTPUT_AVG_STATS_VCLASS_SIMDTYPE	(304)
 
 #define IDC_EDITBOX_DBUG				(400)
 
 #define IDC_RADIO_VMATH					(500)
 #define IDC_RADIO_XNAMATH				(501)
 #define IDC_RADIO_VCLASS				(502)
-#define IDC_RADIO_FPU					(503)
+#define IDC_RADIO_VCLASS_TYPEDEF		(503)
+#define IDC_RADIO_VCLASS_SIMDTYPE		(504)
 
 #define IDC_SLIDER_CH1_LOW				(600)
 #define IDC_SLIDER_CH1_MID				(601)
@@ -206,9 +208,10 @@ double g_avgXNAMath[cAvgSize] = {0};
 double g_avgXNAMathMin = 999999.f;
 double g_avgVClass[cAvgSize] = {0};
 double g_avgVClassMin = 999999.f;
-double g_avgFPU[cAvgSize] = {0};
-double g_avgFPUMin = 999999.f;
-
+double g_avgVClassTypedef[cAvgSize] = {0};
+double g_avgVClassTypedefMin = 999999.f;
+double g_avgVClassSIMDType[cAvgSize] = {0};
+double g_avgVClassSIMDTypeMin = 999999.f;
 
 //--------------------------------------------------------------------------------------
 // Entry point to the program. Initializes everything and goes into a message processing 
@@ -451,7 +454,7 @@ void InitApp()
 
 
 	g_SampleUI.AddSlider(	IDC_SLIDER_MATH_REPS,
-							cSliderX0+5, 480-60,
+							cSliderX0+5, 480-30,
 							cSliderWidth,
 							cSliderHeight,
 							0, 100,
@@ -480,7 +483,8 @@ void InitApp()
 		L"VMath   Avg: ",
 		L"XNAMath Avg: ",
 		L"VClass  Avg: ",
-		L"FPU     Avg: ",
+		L"VClassT Avg: ",
+		L"VClassS Avg: "
 	};
 
 	int avgTextIdArr[] =
@@ -488,10 +492,11 @@ void InitApp()
 		IDC_OUTPUT_AVG_STATS_VMATH,
 		IDC_OUTPUT_AVG_STATS_XNAMATH,
 		IDC_OUTPUT_AVG_STATS_VCLASS,
-		IDC_OUTPUT_AVG_STATS_FPU,
+		IDC_OUTPUT_AVG_STATS_VCLASS_TYPEDEF,
+		IDC_OUTPUT_AVG_STATS_VCLASS_SIMDTYPE
 	};
 	
-	for(int ii=0; ii<4; ii++)
+	for(int ii=0; ii<5; ii++)
 	{
 		g_SampleUI.AddStatic( avgTextIdArr[ii], avgTextArr[ii], 0, 0, 400, 30 );
 		g_SampleUI.GetStatic( avgTextIdArr[ii] )->SetTextColor( D3DCOLOR_ARGB( 255, 255, 255, 255) );
@@ -542,8 +547,8 @@ void InitApp()
     g_SampleUI.AddRadioButton( IDC_RADIO_VMATH, 1, L"VMath", 0, 50, 220, 24, true, L'1' );
     g_SampleUI.AddRadioButton( IDC_RADIO_XNAMATH, 1, L"XNAMath", 0, 50, 220, 24, false, L'2' );
     g_SampleUI.AddRadioButton( IDC_RADIO_VCLASS, 1, L"VClass", 0, 50, 220, 24, false, L'3' );
-	g_SampleUI.AddRadioButton( IDC_RADIO_FPU, 1, L"FPU", 0, 50, 220, 24, false, L'4' );
-
+	g_SampleUI.AddRadioButton( IDC_RADIO_VCLASS_TYPEDEF, 1, L"VClassTypedef", 0, 50, 220, 24, false, L'4' );
+	g_SampleUI.AddRadioButton( IDC_RADIO_VCLASS_SIMDTYPE, 1, L"VClassSIMDType", 0, 50, 220, 24, false, L'5' );
 
 	UpdateDemoUI();
 	
@@ -710,10 +715,11 @@ HRESULT CALLBACK OnResetDevice( IDirect3DDevice9* pd3dDevice,
 		IDC_OUTPUT_AVG_STATS_VMATH,
 		IDC_OUTPUT_AVG_STATS_XNAMATH,
 		IDC_OUTPUT_AVG_STATS_VCLASS,
-		IDC_OUTPUT_AVG_STATS_FPU,
+		IDC_OUTPUT_AVG_STATS_VCLASS_TYPEDEF,
+		IDC_OUTPUT_AVG_STATS_VCLASS_SIMDTYPE
 	};
 
-	for (int ii=0; ii<4; ii++)
+	for (int ii=0; ii<5; ii++)
 	{
 		g_SampleUI.GetControl( avgTextIdArr[ii] )->SetSize( pBackBufferSurfaceDesc->Width - 40, 30 );
 		g_SampleUI.GetControl( avgTextIdArr[ii] )->SetLocation( cSliderX0, pBackBufferSurfaceDesc->Height - (200-ii*15));
@@ -755,7 +761,8 @@ HRESULT CALLBACK OnResetDevice( IDirect3DDevice9* pd3dDevice,
     g_SampleUI.GetControl( IDC_RADIO_VMATH )->SetLocation( pBackBufferSurfaceDesc->Width - 130, 220);
     g_SampleUI.GetControl( IDC_RADIO_XNAMATH )->SetLocation( pBackBufferSurfaceDesc->Width - 130, 220+24 );
     g_SampleUI.GetControl( IDC_RADIO_VCLASS )->SetLocation( pBackBufferSurfaceDesc->Width - 130, 220+48 );
-	g_SampleUI.GetControl( IDC_RADIO_FPU )->SetLocation( pBackBufferSurfaceDesc->Width - 130, 220+72 );
+	g_SampleUI.GetControl( IDC_RADIO_VCLASS_TYPEDEF )->SetLocation( pBackBufferSurfaceDesc->Width - 130, 220+72 );
+	g_SampleUI.GetControl( IDC_RADIO_VCLASS_SIMDTYPE )->SetLocation( pBackBufferSurfaceDesc->Width - 130, 220+96 );
 
     g_Mesh.RestoreDeviceObjects( pd3dDevice );
 
@@ -850,6 +857,8 @@ void CleanUpHacks()
 	CLOTH_VMATH::ClothShutDown();
 	CLOTH_XNAMATH::ClothShutDown();
 	CLOTH_VCLASS::ClothShutDown();
+	CLOTH_VCLASS_TYPEDEF::ClothShutDown();
+	CLOTH_VCLASS_SIMDTYPE::ClothShutDown();
 
     if( g_pVB != NULL )
 	    g_pVB->Release();
@@ -927,14 +936,6 @@ void CALLBACK OnFrameRender( IDirect3DDevice9* pd3dDevice, double fTime, float f
 					totalTime += time;
 				}
 			}
-			else if (g_libType == MATHLIB_TYPE_VCLASS)
-			{
-				for(int ii=0; ii<reps; ii++)
-				{
-					double time = ProcessAudioVClass(2048);
-					totalTime += time;
-				}
-			}
 			else if (g_libType == MATHLIB_TYPE_XNAMATH)
 			{
 				for(int ii=0; ii<reps; ii++)
@@ -943,11 +944,27 @@ void CALLBACK OnFrameRender( IDirect3DDevice9* pd3dDevice, double fTime, float f
 					totalTime += time;
 				}
 			}
-			else if (g_libType == MATHLIB_TYPE_FPU)
+			else if (g_libType == MATHLIB_TYPE_VCLASS)
 			{
 				for(int ii=0; ii<reps; ii++)
 				{
-					double time = ProcessAudioFPU(2048);
+					double time = ProcessAudioVClass(2048);
+					totalTime += time;
+				}
+			}
+			else if (g_libType == MATHLIB_TYPE_VCLASS_TYPEDEF)
+			{
+				for(int ii=0; ii<reps; ii++)
+				{
+					double time = ProcessAudioVClassTypedef(2048);
+					totalTime += time;
+				}
+			}
+			else if (g_libType == MATHLIB_TYPE_VCLASS_SIMDTYPE)
+			{
+				for(int ii=0; ii<reps; ii++)
+				{
+					double time = ProcessAudioVClassSIMDType(2048);
 					totalTime += time;
 				}
 			}
@@ -956,26 +973,28 @@ void CALLBACK OnFrameRender( IDirect3DDevice9* pd3dDevice, double fTime, float f
 				assert(false);
 			}
 		}
-
-
-		if (g_demoType == DEMO_TYPE_CLOTH)
+		else if (g_demoType == DEMO_TYPE_CLOTH)
 		{
 			float timeStep = 1.f/60.f;
 			if (g_libType == MATHLIB_TYPE_VMATH)
 			{
 				CLOTH_VMATH::ClothAnimateAndRender(pd3dDevice, &mWorld, &mView, &mProj, timeStep, reps, &totalTime);
 			}
-			else if (g_libType == MATHLIB_TYPE_VCLASS)
-			{
-				CLOTH_VCLASS::ClothAnimateAndRender(pd3dDevice, &mWorld, &mView, &mProj, timeStep, reps, &totalTime);
-			}
 			else if (g_libType == MATHLIB_TYPE_XNAMATH)
 			{
 				CLOTH_XNAMATH::ClothAnimateAndRender(pd3dDevice, &mWorld, &mView, &mProj, timeStep, reps, &totalTime);
 			}
-			else if (g_libType == MATHLIB_TYPE_FPU)
+			else if (g_libType == MATHLIB_TYPE_VCLASS)
 			{
-				
+				CLOTH_VCLASS::ClothAnimateAndRender(pd3dDevice, &mWorld, &mView, &mProj, timeStep, reps, &totalTime);
+			}
+			else if (g_libType == MATHLIB_TYPE_VCLASS_TYPEDEF)
+			{
+				CLOTH_VCLASS_TYPEDEF::ClothAnimateAndRender(pd3dDevice, &mWorld, &mView, &mProj, timeStep, reps, &totalTime);
+			}
+			else if (g_libType == MATHLIB_TYPE_VCLASS_SIMDTYPE)
+			{
+				CLOTH_VCLASS_SIMDTYPE::ClothAnimateAndRender(pd3dDevice, &mWorld, &mView, &mProj, timeStep, reps, &totalTime);
 			}
 			else
 			{
@@ -1012,7 +1031,8 @@ void UpdateStats(double totalTime)
 		L"VMath   Avg: %5.6f, Min: %5.6f",
 		L"XNAMath Avg: %5.6f, Min: %5.6f",
 		L"VClass  Avg: %5.6f, Min: %5.6f",
-		L"FPU     Avg: %5.6f, Min: %5.6f",
+		L"VClassT Avg: %5.6f, Min: %5.6f",
+		L"VClassS Avg: %5.6f, Min: %5.6f",
 	};
 
 	int avgTextIdArr[] =
@@ -1020,13 +1040,15 @@ void UpdateStats(double totalTime)
 		IDC_OUTPUT_AVG_STATS_VMATH,
 		IDC_OUTPUT_AVG_STATS_XNAMATH,
 		IDC_OUTPUT_AVG_STATS_VCLASS,
-		IDC_OUTPUT_AVG_STATS_FPU,
+		IDC_OUTPUT_AVG_STATS_VCLASS_TYPEDEF,
+		IDC_OUTPUT_AVG_STATS_VCLASS_SIMDTYPE
 	};
 
 	static int avgIndexVMath = 0;
 	static int avgIndexXNAMath = 0;
 	static int avgIndexVClassMath = 0;
-	static int avgIndexFPUMath = 0;
+	static int avgIndexVClassTypedefMath = 0;
+	static int avgIndexVClassSIMDTypeMath = 0;
 
 	double *pCurrArr = 0;
 	int	*pCurr = 0;
@@ -1054,14 +1076,20 @@ void UpdateStats(double totalTime)
 		pMin = &g_avgVClassMin;
 		id = 2;
 	}
-	else if (g_libType == MATHLIB_TYPE_FPU)
+	else if (g_libType == MATHLIB_TYPE_VCLASS_TYPEDEF)
 	{
-		pCurr = &avgIndexFPUMath;
-		pCurrArr = &g_avgFPU[0];
-		pMin = &g_avgFPUMin;
+		pCurr = &avgIndexVClassTypedefMath;
+		pCurrArr = &g_avgVClassTypedef[0];
+		pMin = &g_avgVClassTypedefMin;
 		id = 3;
 	}
-
+	else if (g_libType == MATHLIB_TYPE_VCLASS_SIMDTYPE)
+	{
+		pCurr = &avgIndexVClassSIMDTypeMath;
+		pCurrArr = &g_avgVClassSIMDType[0];
+		pMin = &g_avgVClassSIMDTypeMin;
+		id = 4;
+	}
 
 	pCurrArr[*pCurr] = totalTime;
 
@@ -1081,14 +1109,7 @@ void UpdateStats(double totalTime)
 			*pMin = avgTmp; 
 		}
 
-		if ((g_libType == MATHLIB_TYPE_FPU) && (g_demoType == DEMO_TYPE_CLOTH))
-		{
-			swprintf_s(wszOutput, 1024, L"Not Available");
-		}
-		else
-		{
-			swprintf_s(wszOutput, 1024, avgTextArr[id], avgTmp*1000., (*pMin)*1000.);
-		}
+		swprintf_s(wszOutput, 1024, avgTextArr[id], avgTmp*1000., (*pMin)*1000.);
 
 		g_SampleUI.GetStatic( avgTextIdArr[id] )->SetText(wszOutput);
 
@@ -1234,10 +1255,11 @@ void FromSlidersToCloth()
 //--------------------------------------------------------------------------------------
 void ResetStats(void)
 {
-	g_avgVMathMin	= 
-	g_avgXNAMathMin	=
-	g_avgVClassMin	=
-	g_avgFPUMin		= 999999.f;
+	g_avgVMathMin			= 
+	g_avgXNAMathMin			=
+	g_avgVClassMin			=
+	g_avgVClassTypedefMin	=
+	g_avgVClassSIMDTypeMin	= 999999.f;
 }
 
 //--------------------------------------------------------------------------------------
@@ -1289,7 +1311,8 @@ void CALLBACK OnGUIEvent( UINT nEvent, int nControlID, CDXUTControl* pControl, v
 				g_SampleUI.GetRadioButton(IDC_RADIO_VMATH)->SetVisible(false);
 				g_SampleUI.GetRadioButton(IDC_RADIO_XNAMATH)->SetVisible(false);
 				g_SampleUI.GetRadioButton(IDC_RADIO_VCLASS)->SetVisible(false);
-				g_SampleUI.GetRadioButton(IDC_RADIO_FPU)->SetVisible(false);
+				g_SampleUI.GetRadioButton(IDC_RADIO_VCLASS_TYPEDEF)->SetVisible(false);
+				g_SampleUI.GetRadioButton(IDC_RADIO_VCLASS_SIMDTYPE)->SetVisible(false);
 			}
 			else
 			{
@@ -1297,7 +1320,8 @@ void CALLBACK OnGUIEvent( UINT nEvent, int nControlID, CDXUTControl* pControl, v
 				g_SampleUI.GetRadioButton(IDC_RADIO_VMATH)->SetVisible(true);
 				g_SampleUI.GetRadioButton(IDC_RADIO_XNAMATH)->SetVisible(true);
 				g_SampleUI.GetRadioButton(IDC_RADIO_VCLASS)->SetVisible(true);
-				g_SampleUI.GetRadioButton(IDC_RADIO_FPU)->SetVisible(true);
+				g_SampleUI.GetRadioButton(IDC_RADIO_VCLASS_TYPEDEF)->SetVisible(true);
+				g_SampleUI.GetRadioButton(IDC_RADIO_VCLASS_SIMDTYPE)->SetVisible(true);
 			}
 
 		} break;
@@ -1325,10 +1349,7 @@ void CALLBACK OnGUIEvent( UINT nEvent, int nControlID, CDXUTControl* pControl, v
         case IDC_SLIDER_MATH_REPS:
 		{
 			//reset stats
-			g_avgVMathMin	= 
-			g_avgXNAMathMin	=
-			g_avgVClassMin	=
-			g_avgFPUMin		= 999999.f;
+			ResetStats();
 
 			int reps = GetCurrReps();
 			swprintf_s( wszOutput, 1024, L"Calculation Repetitions: %d",  reps);
@@ -1372,9 +1393,14 @@ void CALLBACK OnGUIEvent( UINT nEvent, int nControlID, CDXUTControl* pControl, v
 			g_libType = MATHLIB_TYPE_VCLASS;
 		}
 		break;
-        case IDC_RADIO_FPU:
+		case IDC_RADIO_VCLASS_TYPEDEF:
 		{
-			g_libType = MATHLIB_TYPE_FPU;
+			g_libType = MATHLIB_TYPE_VCLASS_TYPEDEF;
+		}
+		break;
+		case IDC_RADIO_VCLASS_SIMDTYPE:
+		{
+			g_libType = MATHLIB_TYPE_VCLASS_SIMDTYPE;
 		}
 		break;
 
