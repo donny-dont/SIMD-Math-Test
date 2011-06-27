@@ -57,10 +57,10 @@ namespace VCLASS_TYPEDEF
 
 	inline simd_type VBDot(simd_param va, simd_param vb)
 	{
-		simd_type t0 = _mm_mul_ps(va, vb);
-		simd_type t1 = _mm_shuffle_ps(t0, t0, _MM_SHUFFLE(1,0,3,2));
-		simd_type t2 = _mm_add_ps(t0, t1);
-		simd_type t3 = _mm_shuffle_ps(t2, t2, _MM_SHUFFLE(2,3,0,1));
+		const simd_type t0 = _mm_mul_ps(va, vb);
+		const simd_type t1 = _mm_shuffle_ps(t0, t0, _MM_SHUFFLE(1,0,3,2));
+		const simd_type t2 = _mm_add_ps(t0, t1);
+		const simd_type t3 = _mm_shuffle_ps(t2, t2, _MM_SHUFFLE(2,3,0,1));
 
 		return _mm_add_ps(t3, t2);
 	}
@@ -106,7 +106,7 @@ namespace VCLASS_TYPEDEF
 				: _rep(VLoad(x, y, z, w))
 			{ }
 
-			inline vector4(simd_type rep)
+			inline vector4(const simd_type& rep)
 				: _rep(rep)
 			{ }
 

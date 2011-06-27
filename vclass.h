@@ -30,7 +30,7 @@ namespace VCLASS
 				: xyzw(_mm_set_ps1(f))
 			{ }
 
-			inline Vec4(const __m128 qword)
+			inline Vec4(const __m128& qword)
 				: xyzw(qword)
 			{ }
 
@@ -99,13 +99,12 @@ namespace VCLASS
 
 			static inline Vec4 Dot(const Vec4& va, const Vec4& vb)
 			{
-				__m128 t0 = _mm_mul_ps(va.xyzw, vb.xyzw);
-				__m128 t1 = _mm_shuffle_ps(t0, t0, _MM_SHUFFLE(1,0,3,2));
-				__m128 t2 = _mm_add_ps(t0, t1);
-				__m128 t3 = _mm_shuffle_ps(t2, t2, _MM_SHUFFLE(2,3,0,1));
-				__m128 dot = _mm_add_ps(t3, t2);
+				const __m128 t0 = _mm_mul_ps(va.xyzw, vb.xyzw);
+				const __m128 t1 = _mm_shuffle_ps(t0, t0, _MM_SHUFFLE(1,0,3,2));
+				const __m128 t2 = _mm_add_ps(t0, t1);
+				const __m128 t3 = _mm_shuffle_ps(t2, t2, _MM_SHUFFLE(2,3,0,1));
 
-				return Vec4(dot);
+				return Vec4(_mm_add_ps(t3, t2));
 			}
 
 			static inline Vec4 Sqrt(const Vec4& va)
